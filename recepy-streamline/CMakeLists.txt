@@ -38,6 +38,10 @@ else()
     main.cpp
     mainwindow.cpp
     mainwindow.h
+    recepy.h
+    recepy.cpp
+    cookingmenu.hpp
+    cookingmenu.cpp
     mainwindow.ui
   )
 endif()
