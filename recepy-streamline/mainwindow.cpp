@@ -1,22 +1,54 @@
-#include "mainwindow.h"
-#include <QMenu>
-#include <QMenuBar>
+//#include "cookingmenu.hpp"
 
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "cookingmenubar.hpp"
+
+
+#include <QWidget>
+#include <QDebug>
+
+//#include <QMenu>
+//#include <QMenuBar>
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    // Now populate empty menubar & toolbar
+//    MWmenu->show();  // Shows a detached menubar (i.e. outside of the main window).
+
+
+    ui->setupUi(this);
+
+    CookingMenuBar *Cmenu = new CookingMenuBar(this);
+
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+/*
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent) {
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow)
+{
 
   QAction *quit = new QAction("&Quit", this);
-  QAction *newRecepy = new QAction("&New Recepy", this);
   QAction *openCookbook = new QAction("&Open Cookbook", this);
 
-  QMenu *file;
   QMenuBar * mainMenuBar = menuBar();
-  file = mainMenuBar->addMenu("&Cooking");
-  file->addAction(newRecepy);
-  file->addAction(openCookbook);
-  file->addAction(quit);
+  QMenu * cookingmenu;
+  cookingmenu = mainMenuBar->addMenu("&Cooking");
+  cookingmenu->addAction(openCookbook);
+  cookingmenu->addAction(quit);
 
-//  connect(newRecepy, &QAction::triggered, qApp, QApplication::quit);
-  connect(openCookbook, &QAction::triggered, qApp, QApplication::quit);
+//  connect(openCookbook, &QAction::triggered, this, &M);
   connect(quit, &QAction::triggered, qApp, QApplication::quit);
 }
+
+*/
+

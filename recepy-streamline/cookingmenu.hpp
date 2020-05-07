@@ -5,15 +5,15 @@
 
 class CookingMenu : public QMenu
 {
+protected:
+    QMenuBar * parentMenu_;
 public:
-    CookingMenu();
-    ~CookingMenu();
+    CookingMenu(QWidget * parent,QMenuBar * parentMenu);
+    ~CookingMenu(){}
+public slots:
+    void addCookingMenu();
 
-    void addCookingMenu(QMenuBar* menubar){
-        menubar->addMenu("&Cooking");
-    }
-
-
+//    void openCookbook();
 };
 
 #endif // COOKINGMENU_HPP

@@ -3,8 +3,21 @@
 #include <QMainWindow>
 #include <QApplication>
 
-class MainWindow : public QMainWindow {
 
-  public:
-    MainWindow(QWidget *parent = 0);
+#include "cookingmenubar.hpp"
+
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+
+private:
+    Ui::MainWindow *ui;
 };

@@ -42,6 +42,10 @@ else()
     recepy.cpp
     cookingmenu.hpp
     cookingmenu.cpp
+    cookbookmenu.hpp
+    cookbookmenu.cpp
+    cookingmenubar.hpp
+    cookingmenubar.cpp
     mainwindow.ui
   )
 endif()
