@@ -55,28 +55,7 @@ void CookingMenuBar::openCookbookSlot()
 // open Externel Cookbook with QFileDialog
 void CookingMenuBar::openExtCookbookSlot()
 {
-    createCookbookActions();
 
-  /*
-    bool ok;
-    QString cookBook = QInputDialog::getText(this, tr("Choose Cookbook"),
-                                         tr("Enter cookbook directory:"), QLineEdit::Normal,
-                                         QDir::home().dirName(), &ok);
-  */
-    bool ok;
-    QStringList entries = CookbookLocationDialog::getStrings(this, &ok);
-    if (ok) {
-        // use list
-    }
-
-    QCookbook * openenedBook = new QCookbook(this,entries[0].toStdString(),entries[1].toStdString());
-
-    if (ok && !entries.isEmpty()){
-
-      QByteArray nameArray = entries[0].toLocal8Bit();
-      const char *charName = nameArray.data();
-      addCookbookMenu(charName, openenedBook);
-    }
 }
 
 
