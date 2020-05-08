@@ -40,12 +40,12 @@ else()
     mainwindow.h
     recepy.h
     recepy.cpp
-    cookingmenu.hpp
-    cookingmenu.cpp
-    cookbookmenu.hpp
-    cookbookmenu.cpp
     cookingmenubar.hpp
     cookingmenubar.cpp
+    cookbooklocationdialog.cpp
+    cookbooklocationdialog.hpp
+    qcookbook.cpp
+    qcookbook.hpp
     mainwindow.ui
   )
 endif()
