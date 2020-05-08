@@ -1,0 +1,15 @@
+#ifndef DIRECTORY_PATH_H_IN
+#define DIRECTORY_PATH_H_IN
+
+#include <string>
+
+// define your version_libinterface
+#define INSTALL_DIR "${CMAKE_SOURCE_DIR}"
+
+// alternatively you could add your global method getLibInterfaceVersion here
+std::string getInstallDirectory()
+{
+   return INSTALL_DIR;
+}
+
+#endif // DIRECTORY_PATH_H_IN

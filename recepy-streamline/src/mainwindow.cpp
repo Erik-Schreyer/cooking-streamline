@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QDebug>
+#include <string>
 
 //#include <QMenu>
 //#include <QMenuBar>

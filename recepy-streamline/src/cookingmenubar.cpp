@@ -7,6 +7,8 @@
 #include <vector>
 #include <QInputDialog>
 #include <QDir>
+#include <fstream>
+#include <sstream>
 
 CookingMenuBar::CookingMenuBar(QMainWindow *parent)
 {
@@ -28,12 +30,32 @@ void CookingMenuBar::openCookbookSlot()
 {
     createCookbookActions();
 
-  /*
-    bool ok;
+    QStringList bookList;
+    std::string directoryPath=INSTALL_DIRECTORY;
+
+    std::ifstream listFile(directoryPath+"/cookbooks/list.txt");
+
+    std::stringstream buffer;
+    buffer << listFile.rdbuf();
+
+    std::string currentCookbook;
+    QString currentCookbookQ;
+
+        while(buffer >> currentCookbook){
+        currentCookbookQ = QString::fromUtf8(currentCookbook.c_str());
+        bookList.append(currentCookbookQ);
+    }
+
+
+    QInputDialog *dialog = new QInputDialog();
+    bool accepted;
+    QString cookBook = dialog->getItem(this, "Choose Cookbook", "Choose:", bookList, 0, false, &accepted);
+
+/*
     QString cookBook = QInputDialog::getText(this, tr("Choose Cookbook"),
-                                         tr("Enter cookbook directory:"), QLineEdit::Normal,
+                                         tr("Choose:"),QLineEdit::Normal,
                                          QDir::home().dirName(), &ok);
-  */
+
 
     bool ok;
     QStringList entries = CookbookLocationDialog::getStrings(this, &ok);
@@ -49,7 +71,7 @@ void CookingMenuBar::openCookbookSlot()
       const char *charName = nameArray.data();
       addCookbookMenu(charName, openenedBook);
     }
-
+  */
 }
 
 // open Externel Cookbook with QFileDialog

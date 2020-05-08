@@ -26,28 +26,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-if(ANDROID)
-  add_library(recepy-streamline SHARED
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-  )
-else()
-  add_executable(recepy-streamline
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    recepy.h
-    recepy.cpp
-    cookingmenubar.hpp
-    cookingmenubar.cpp
-    cookbooklocationdialog.cpp
-    cookbooklocationdialog.hpp
-    qcookbook.cpp
-    qcookbook.hpp
-    mainwindow.ui
-  )
-endif()
+add_subdirectory(src)
 
-target_link_libraries(recepy-streamline PRIVATE Qt5::Widgets)
+
