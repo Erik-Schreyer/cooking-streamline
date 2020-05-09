@@ -4,8 +4,6 @@
 #include <QApplication>
 
 
-#include "cookingmenubar.hpp"
-
 namespace Ui {
 class MainWindow;
 }

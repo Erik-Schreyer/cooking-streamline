@@ -23,64 +23,69 @@ std::regex timer_reg_minutes("([0-5][0-9]):?([0-5][0-9])?(?:min|Min)");
 
 /** @brief constructor given file */
  Recepy::Recepy(std::string recepytxt): stepcount_(0) {
-          std::stringstream inputf(recepytxt);
+      std::ifstream listFile(recepytxt);
+
+      std::stringstream buffer;
+      buffer << listFile.rdbuf();
+
+      //The first line in the recepy file is the name
+      std::string name;
+      std::getline(buffer,name);
+      name_ = name;
+
+      //The second line contains the total cooking time
+      std::smatch match;
+      int cookingtime;
+
+      std::string totaltimeline;
+      std::getline(buffer,totaltimeline);
+      if(std::regex_search(totaltimeline,match,timer_reg_hours)){
+          cookingtime = 3600*std::stoi(match.str(1))+60*std::stoi(match.str(2));
+      }
+      if(std::regex_search(totaltimeline,match,timer_reg_minutes)){
+          cookingtime = 60*std::stoi(match.str(1))+std::stoi(match.str(2));
+      }
+      cookingtime_=cookingtime;
+
+      //A newline seperated list of ingredients
+      std::string current_ingredient="";
+      std::string ingredientString="";
+      std::vector<std::string> ingredients;
+      while(std::getline(buffer,current_ingredient)){
+          if(current_ingredient=="Steps:"){break;}
+          ingredients.push_back(current_ingredient);
+          ingredientString+=current_ingredient+"\n";
+      }
+
+      ingredients_=ingredients;
+      ingredientString_=ingredientString;
+
+      //The rest contains the steps of the recepy
+      std::vector<std::string> steps;
+      std::vector<std::vector<int>> timers;
+
+      std::string current_step;
 
 
-          //The first line in the recepy file is the name
-          std::string name;
-          std::getline(inputf,name);
-          name_ = name;
+      int current_timer;
+      int stepcount=0;
+      while(std::getline(buffer,current_step)){
+        stepcount++;
+        steps.push_back(current_step);
 
-          //The second line contains the total cooking time
-          std::smatch match;
-          int cookingtime;
-
-          std::string totaltimeline;
-          std::getline(inputf,totaltimeline);
-          if(std::regex_search(totaltimeline,match,timer_reg_hours)){
-              cookingtime = 3600*std::stoi(match.str(1))+60*std::stoi(match.str(2));
-          }
-          if(std::regex_search(totaltimeline,match,timer_reg_minutes)){
-              cookingtime = 60*std::stoi(match.str(1))+std::stoi(match.str(2));
-          }
-          cookingtime_=cookingtime;
-
-          //A newline seperated list of ingredients
-          std::string current_ingredient="";
-          std::vector<std::string> ingredients;
-          while(std::getline(inputf,current_ingredient)){
-              if(current_ingredient=="Steps:"){break;}
-              ingredients.push_back(current_ingredient);
-          }
-
-          ingredients_=ingredients;
-
-          //The rest contains the steps of the recepy
-          std::vector<std::string> steps;
-          std::vector<std::vector<int>> timers;
-
-          std::string current_step;
-
-
-          int current_timer;
-          int stepcount=0;
-          while(std::getline(inputf,current_step)){
-            stepcount++;
-            steps.push_back(current_step);
-
-            while(std::regex_search(current_step,match,timer_reg_hours)){
-                current_timer = 3600*std::stoi(match.str(1))+60*std::stoi(match.str(2));
-                timers[stepcount].push_back(current_timer);
-            }
-            while(std::regex_search(current_step,match,timer_reg_minutes)){
-                current_timer = 60*std::stoi(match.str(1))+std::stoi(match.str(2));
-                timers[stepcount].push_back(current_timer);
-            }
-
-          }
-          steps_=steps;
-          timers_=timers;
+        while(std::regex_search(current_step,match,timer_reg_hours)){
+            current_timer = 3600*std::stoi(match.str(1))+60*std::stoi(match.str(2));
+            timers[stepcount].push_back(current_timer);
         }
+        while(std::regex_search(current_step,match,timer_reg_minutes)){
+            current_timer = 60*std::stoi(match.str(1))+std::stoi(match.str(2));
+            timers[stepcount].push_back(current_timer);
+        }
+
+      }
+      steps_=steps;
+      timers_=timers;
+ }
 
 /** @brief add recepy to specified cookbook folder as text file with .recepy ending */
  void Recepy::add_to_cook_book(std::string cookbook){

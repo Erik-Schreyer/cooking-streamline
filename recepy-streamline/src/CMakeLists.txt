@@ -5,17 +5,19 @@ include_directories(include)
 add_definitions( -DINSTALL_DIRECTORY=\"${CMAKE_SOURCE_DIR}\" )
 
 add_executable(recepy-exe
-    main.cpp
-    mainwindow.cpp
     include/mainwindow.h
     include/recepy.h
-    recepy.cpp
     include/cookingmenubar.hpp
+    include/qcookbook.hpp
+    include/cookbooklocationdialog.hpp
+    include/qrecepy.hpp
+    main.cpp
+    mainwindow.cpp
+    recepy.cpp
     cookingmenubar.cpp
     cookbooklocationdialog.cpp
-    include/cookbooklocationdialog.hpp
     qcookbook.cpp
-    include/qcookbook.hpp
+    qrecepy.cpp
     mainwindow.ui
 )
 

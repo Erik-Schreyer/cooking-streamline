@@ -1,13 +1,17 @@
 #ifndef QCOOKBOOK_HPP
 #define QCOOKBOOK_HPP
 
+#include "qmainwindow.h"
 #include <QObject>
 #include <string>
+#include <QMenuBar>
+
+class CookingMenuBar;
 
 class QCookbook : public QObject
 {
 public:
-    explicit QCookbook(QWidget * parent, std::string name, std::string location);
+    explicit QCookbook(QWidget* parent, CookingMenuBar * menuBar, std::string name, std::string location);
     ~QCookbook(){};
 
 public slots:
@@ -17,6 +21,7 @@ public slots:
 
 public:
     QWidget * parent_;
+    CookingMenuBar * menuBar_;
     std::string name_;
     std::string location_;
 

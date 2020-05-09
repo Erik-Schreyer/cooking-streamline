@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
   MainWindow window;
 
-  window.resize(450, 250);
+  window.resize(600, 500);
   window.setWindowTitle("Recepy Streamline");
   window.show();
 
