@@ -59,4 +59,5 @@ void QRecepy::initializeProcess(){
     }
 
 
+    QPushButton *button = new QPushButton("&Download", this);
 }
