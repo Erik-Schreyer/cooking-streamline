@@ -7,7 +7,7 @@
 
 class QRecepy;
 
-class QTimerStack
+class QTimerStack : public QObject
 {
 public:
     explicit QTimerStack(QMainWindow* parent);
@@ -20,13 +20,25 @@ private:
     std::vector<std::vector<QCookingTimer *>> timers_;
     std::vector<QWidget * > widgets_;
 
+    int currentStep_;
+
     QFont buttonF_;
     QFont timerF_;
 
+public slots:
+    void deployTimerWidgetSlot();
+
 public:
     void addTimer(int step, int time);
-    void deployTimerWidget(int step);
     void initializeWidgets(int numSteps);
+    void initializeTimers(int numSteps);
+    void incCurrentStep(){
+        currentStep_++;
+    }
+    void decCurrentStep(){
+        currentStep_--;
+    }
+
 };
 
 #endif // QTIMERSTACK_HPP

@@ -11,6 +11,7 @@
 
 //#include <QMenu>
 //#include <QMenuBar>
+#include <QGridLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     CookingMenuBar *Cmenu = new CookingMenuBar(this);
 
-
+    QVBoxLayout* layout = new QVBoxLayout;
+    this->setLayout(layout);
 }
 
 MainWindow::~MainWindow()

@@ -6,8 +6,8 @@
 
 #include "recepy.h"
 
-std::regex timer_reg_hours("([0-9]):([0-5][0-9])h");
-std::regex timer_reg_minutes("([0-5][0-9]):?([0-5][0-9])?(?:min|Min)");
+std::regex timer_reg_hours("([0-9])(?::)([0-5][0-9])(?:h)");
+std::regex timer_reg_minutes("([0-5][0-9])(?::)([0-5][0-9])(?:min|Min)");
 
 /** @brief constructor given vectors */
  Recepy::Recepy(const Recepy &copy) :
@@ -63,25 +63,29 @@ std::regex timer_reg_minutes("([0-5][0-9]):?([0-5][0-9])?(?:min|Min)");
       //The rest contains the steps of the recepy
       std::vector<std::string> steps;
       std::vector<std::vector<int>> timers;
-
+      std::vector<int> currentTimerVec;
       std::string current_step;
 
 
       int current_timer;
       int stepcount=0;
       while(std::getline(buffer,current_step)){
-        stepcount++;
+        timers.push_back(currentTimerVec);
+
         steps.push_back(current_step);
 
         while(std::regex_search(current_step,match,timer_reg_hours)){
             current_timer = 3600*std::stoi(match.str(1))+60*std::stoi(match.str(2));
-            timers[stepcount].push_back(current_timer);
+            currentTimerVec.push_back(current_timer);
+            current_step = match.suffix().str();
         }
         while(std::regex_search(current_step,match,timer_reg_minutes)){
             current_timer = 60*std::stoi(match.str(1))+std::stoi(match.str(2));
-            timers[stepcount].push_back(current_timer);
+            currentTimerVec.push_back(current_timer);
+            current_step = match.suffix().str();
         }
-
+        timers[stepcount]=currentTimerVec;
+        stepcount++;
       }
       steps_=steps;
       timers_=timers;

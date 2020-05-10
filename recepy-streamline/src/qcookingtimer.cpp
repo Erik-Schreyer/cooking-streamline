@@ -20,6 +20,7 @@ QCookingTimer::QCookingTimer(QWidget * parent, int time, QFont buttonF, QFont ti
     timeLabel->setText(QString::fromStdString(std::to_string(time_/60))
                        + QString::fromStdString(std::to_string(time_%60)));
     timeLabel->setFont(timerF_);
+    timeLabel_=timeLabel;
 }
 
 void QCookingTimer::startOrResetTimerSlot(){

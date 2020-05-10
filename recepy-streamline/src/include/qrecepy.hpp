@@ -6,6 +6,7 @@
 #include <QObject>
 #include <string>
 #include <QMenuBar>
+#include <QStackedWidget>
 #include "qtimerstack.hpp"
 
 class CookingMenuBar;
@@ -29,12 +30,22 @@ public:
     std::string location_;
     Recepy* recepy_;
 
+    std::vector<QWidget*> widgets_;
     QTimerStack * qTimers_;
+
+    QStackedWidget * recepyWidget_;
+
+    unsigned int numSteps_;
+    unsigned int currentStep_;
 
     QFont titleF_;
     QFont stepF_;
 
     void initializeProcess();
+    void setUpStepWidget(int step);
+    void addWidgetToMain(int step);
+    void removeWidgetFromMain(int step);
+    void initializeTimerStack();
 };
 
 #endif // QRECEPY_HPP
