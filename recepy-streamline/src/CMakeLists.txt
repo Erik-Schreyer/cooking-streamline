@@ -11,6 +11,8 @@ add_executable(recepy-exe
     include/qcookbook.hpp
     include/cookbooklocationdialog.hpp
     include/qrecepy.hpp
+    include/qtimerstack.hpp
+    include/qcookingtimer.hpp
     main.cpp
     mainwindow.cpp
     recepy.cpp
@@ -18,6 +20,8 @@ add_executable(recepy-exe
     cookbooklocationdialog.cpp
     qcookbook.cpp
     qrecepy.cpp
+    qtimerstack.cpp
+    qcookingtimer.cpp
     mainwindow.ui
 )
 

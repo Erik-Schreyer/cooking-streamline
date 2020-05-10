@@ -6,6 +6,7 @@
 #include <QObject>
 #include <string>
 #include <QMenuBar>
+#include "qtimerstack.hpp"
 
 class CookingMenuBar;
 
@@ -22,11 +23,13 @@ public slots:
     void saveRecepySlot();
 
 public:
-    QWidget * parent_;
+    QMainWindow * parent_;
     CookingMenuBar * menuBar_;
     std::string name_;
     std::string location_;
     Recepy* recepy_;
+
+    QTimerStack * qTimers_;
 
     QFont titleF_;
     QFont stepF_;
