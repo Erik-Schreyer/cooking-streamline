@@ -31,6 +31,7 @@ private slots:
     // Declare function prototypes
     void openCookbookSlot();
     void openExtCookbookSlot();
+
 //    void openRecepySlot();
 //    void openNewRecepySlot();
 
@@ -58,12 +59,14 @@ public:
     QAction *loadRecepy_;
     QAction *removeRecepy_;
     QAction *listRecepies_;
+    QAction *closeCookbook_;
 
     //Recepy menu actions
     QAction *nextStep_;
     QAction *previousStep_;
     QAction *showRecepy_;
     QAction *showIngredients_;
+    QAction *closeRecepy_;
 
 };
 

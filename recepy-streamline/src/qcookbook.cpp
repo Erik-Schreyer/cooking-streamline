@@ -6,10 +6,11 @@
 
 #include <QInputDialog>
 #include <QDir>
+#include <QMenuBar>
 #include <fstream>
 #include <sstream>
 
-QCookbook::QCookbook(QWidget * parent, CookingMenuBar * menuBar, std::string name, std::string location) :
+QCookbook::QCookbook(MainWindow * parent, CookingMenuBar * menuBar, std::string name, std::string location) :
     parent_(parent),
     menuBar_(menuBar),
     name_(name),
@@ -130,5 +131,11 @@ void QCookbook::removeRecepySlot(){
         listFileOut.close();
 
     }
+
+}
+
+void QCookbook::closeCookbookSlot(){
+
+    parent_->menuBar()->removeAction(thisMenuAction_);
 
 }

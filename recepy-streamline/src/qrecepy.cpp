@@ -145,3 +145,8 @@ void QRecepy::initializeTimerStack(){
         }
     }
 }
+
+void QRecepy::closeRecepySlot(){
+    parent_->menuBar()->removeAction(thisMenuAction_);
+    this->recepyWidget_->setVisible(false);
+}

@@ -24,10 +24,12 @@ public slots:
     void previousStepSlot();
     void showRecepySlot();
     void saveRecepySlot();
+    void closeRecepySlot();
 
 public:
     MainWindow * parent_;
     CookingMenuBar * menuBar_;
+    QAction * thisMenuAction_;
     std::string name_;
     std::string location_;
     Recepy* recepy_;
