@@ -12,7 +12,7 @@
 #include <fstream>
 #include <sstream>
 
-CookingMenuBar::CookingMenuBar(QMainWindow *parent)
+CookingMenuBar::CookingMenuBar(MainWindow *parent)
 {
     mainWindow_ = parent;
 
@@ -62,27 +62,7 @@ void CookingMenuBar::openCookbookSlot()
 
       addCookbookMenu(charName, openenedBook);
     }
-/*
-    QString cookBook = QInputDialog::getText(this, tr("Choose Cookbook"),
-                                         tr("Choose:"),QLineEdit::Normal,
-                                         QDir::home().dirName(), &ok);
 
-
-    bool ok;
-    QStringList entries = CookbookLocationDialog::getStrings(this, &ok);
-    if (ok) {
-        // use list
-    }
-
-    QCookbook * openenedBook = new QCookbook(this,entries[0].toStdString(),entries[1].toStdString());
-
-    if (ok && !entries.isEmpty()){
-
-      QByteArray nameArray = entries[0].toLocal8Bit();
-      const char *charName = nameArray.data();
-      addCookbookMenu(charName, openenedBook);
-    }
-  */
 }
 
 // open Externel Cookbook with QFileDialog
@@ -104,7 +84,6 @@ void CookingMenuBar::openExtCookbookSlot()
     }
 }
 
-
 // Function for creating all menu actions
 void CookingMenuBar::createActions()
 {
@@ -116,8 +95,9 @@ void CookingMenuBar::createActions()
 // Function for creating cookbook actions
 void CookingMenuBar::createCookbookActions()
 {
-    this->newRecepy_ = new QAction("&New Recpy", this);
+    this->newRecepy_ = new QAction("&New Recepy", this);
     this->loadRecepy_ = new QAction("&Load Recepy", this);
+    this->removeRecepy_ = new QAction("&Remove Recepy", this);
     this->listRecepies_ = new QAction("&List Recepies", this);
 
 }
@@ -127,14 +107,11 @@ void CookingMenuBar::createRecepyActions()
 {
     this->nextStep_ = new QAction("&Next Step", this);
     this->previousStep_ = new QAction("&Previous Step", this);
+    this->showRecepy_ = new QAction("&Show Recepy", this);
     this->showIngredients_ = new QAction("&Show Ingredients", this);
 }
 
-// Function for creating new recepy actions
-void CookingMenuBar::createNewRecepyActions()
-{
-    this->saveRecepy_ = new QAction("&Save Recepy", this);
-}
+
 //Create menu in menubar
 void CookingMenuBar::createMenus()
 {
@@ -159,9 +136,13 @@ void CookingMenuBar::addCookbookMenu(const char* name, QCookbook * openedBook){
 
     cookbookMenu->addAction(newRecepy_);
     cookbookMenu->addAction(loadRecepy_);
-    cookbookMenu->addAction(listRecepies_);
+    cookbookMenu->addAction(removeRecepy_);
+
+//    cookbookMenu->addAction(listRecepies_);
 
     connect(loadRecepy_, &QAction::triggered, openedBook, &QCookbook::loadRecepySlot);
+    connect(newRecepy_, &QAction::triggered, openedBook, &QCookbook::newRecepySlot);
+    connect(removeRecepy_, &QAction::triggered, openedBook, &QCookbook::removeRecepySlot);
 
 }
 
@@ -171,10 +152,12 @@ void CookingMenuBar::addRecepyMenu(const char *name, QRecepy *openedRecepy){
 
     recepyMenu->addAction(nextStep_);
     recepyMenu->addAction(previousStep_);
+    recepyMenu->addAction(showRecepy_);
     recepyMenu->addAction(showIngredients_);
 
     connect(nextStep_, &QAction::triggered, openedRecepy, &QRecepy::nextStepSlot);
     connect(previousStep_, &QAction::triggered, openedRecepy, &QRecepy::previousStepSlot);
+    connect(showRecepy_, &QAction::triggered, openedRecepy, &QRecepy::showRecepySlot);
     connect(showIngredients_, &QAction::triggered, openedRecepy, &QRecepy::showIngredientsSlot);
 
 }

@@ -13,25 +13,29 @@
 //#include <QMenuBar>
 #include <QGridLayout>
 
+
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
+//    ui(new Ui::MainWindow)
 {
     // Now populate empty menubar & toolbar
 //    MWmenu->show();  // Shows a detached menubar (i.e. outside of the main window).
 
 
-    ui->setupUi(this);
+ //   ui->setupUi(this);
 
     CookingMenuBar *Cmenu = new CookingMenuBar(this);
 
-    QVBoxLayout* layout = new QVBoxLayout;
-    this->setLayout(layout);
+    QStackedWidget * centralStackedWidget = new QStackedWidget(this);
+    this->setCentralWidget(centralStackedWidget);
+    mainStackedWidget_=centralStackedWidget;
+//    QVBoxLayout* layout = new QVBoxLayout;
+//    this->setLayout(layout);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  //  delete ui;
 }
 
 /*

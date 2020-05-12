@@ -18,6 +18,7 @@ public slots:
     void newRecepySlot();
     void loadRecepySlot();
     void listRecepiesSlot();
+    void removeRecepySlot();
 
 public:
     QWidget * parent_;

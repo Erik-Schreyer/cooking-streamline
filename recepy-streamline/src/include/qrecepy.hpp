@@ -8,23 +8,25 @@
 #include <QMenuBar>
 #include <QStackedWidget>
 #include "qtimerstack.hpp"
+#include "mainwindow.h"
 
 class CookingMenuBar;
 
 class QRecepy : public QObject
 {
 public:
-    explicit QRecepy(QMainWindow* parent, CookingMenuBar * menuBar, std::string name, Recepy * recepy);
+    explicit QRecepy(MainWindow* parent, CookingMenuBar * menuBar, std::string name, Recepy * recepy);
     ~QRecepy(){};
 
 public slots:
     void nextStepSlot();
     void showIngredientsSlot();
     void previousStepSlot();
+    void showRecepySlot();
     void saveRecepySlot();
 
 public:
-    QMainWindow * parent_;
+    MainWindow * parent_;
     CookingMenuBar * menuBar_;
     std::string name_;
     std::string location_;
@@ -37,6 +39,7 @@ public:
 
     unsigned int numSteps_;
     unsigned int currentStep_;
+    unsigned int stackIndex_;
 
     QFont titleF_;
     QFont stepF_;

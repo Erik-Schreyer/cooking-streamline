@@ -23,6 +23,7 @@ private:
     int currentStep_;
 
     QFont buttonF_;
+    QFont oneMinuteFont_;
     QFont timerF_;
 
 public slots:

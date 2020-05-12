@@ -85,6 +85,7 @@ std::regex timer_reg_minutes("([0-5][0-9])(?::)([0-5][0-9])(?:min|Min)");
             current_step = match.suffix().str();
         }
         timers[stepcount]=currentTimerVec;
+        currentTimerVec.clear();
         stepcount++;
       }
       steps_=steps;

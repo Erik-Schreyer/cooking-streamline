@@ -2,7 +2,7 @@
 
 #include <QMainWindow>
 #include <QApplication>
-
+#include <QStackedWidget>
 
 namespace Ui {
 class MainWindow;
@@ -17,5 +17,11 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    QStackedWidget * mainStackedWidget_;
+
+public:
+    QStackedWidget * getMainStackedWidget(){
+        return mainStackedWidget_;
+    }
+//    Ui::MainWindow *ui;
 };

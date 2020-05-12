@@ -10,7 +10,7 @@
 #include <fstream>
 #include <sstream>
 
-QRecepy::QRecepy(QMainWindow * parent, CookingMenuBar * menuBar, std::string name, Recepy * recepy) :
+QRecepy::QRecepy(MainWindow * parent, CookingMenuBar * menuBar, std::string name, Recepy * recepy) :
     parent_(parent),
     menuBar_(menuBar),
     name_(name),
@@ -28,6 +28,8 @@ QRecepy::QRecepy(QMainWindow * parent, CookingMenuBar * menuBar, std::string nam
 
 void QRecepy::nextStepSlot(){
 //    parent_->layout()->removeWidget(widgets_[currentStep_]);
+    (parent_->getMainStackedWidget())->setCurrentIndex(stackIndex_);
+
     if(currentStep_ < numSteps_-1){
         currentStep_++;
         qTimers_->incCurrentStep();
@@ -39,6 +41,8 @@ void QRecepy::nextStepSlot(){
 
 void QRecepy::previousStepSlot(){
 //    parent_->layout()->removeWidget(widgets_[currentStep_]);
+    (parent_->getMainStackedWidget())->setCurrentIndex(stackIndex_);
+
     if(currentStep_ > 0){
         currentStep_--;
         qTimers_->decCurrentStep();
@@ -46,6 +50,12 @@ void QRecepy::previousStepSlot(){
     //    parent_->setCentralWidget(widgets_[currentStep_]);
         recepyWidget_->setCurrentIndex(currentStep_);
     }
+}
+
+void QRecepy::showRecepySlot(){
+//    parent_->layout()->removeWidget(widgets_[currentStep_]);
+    (parent_->getMainStackedWidget())->setCurrentIndex(stackIndex_);
+
 }
 
 //Show Ingredients Callback
@@ -66,7 +76,10 @@ void QRecepy::initializeProcess(){
         recepyWidget->addWidget(widgets_[stepC]);
     }
     recepyWidget_=recepyWidget;
-    parent_->setCentralWidget(recepyWidget_);
+    stackIndex_=(parent_->getMainStackedWidget())->addWidget(recepyWidget_);
+    (parent_->getMainStackedWidget())->setCurrentIndex(stackIndex_);
+
+    //    parent_->setCentralWidget(recepyWidget_);
 //    parent_->layout()->addWidget(widgets_[0]);
 //    widgets_[0]->show();
 }
@@ -89,12 +102,18 @@ void QRecepy::setUpStepWidget(int step){
 //    firstStepLabel->show();
 
     QPushButton *timerButton = new QPushButton("&Show Timers", stepWidget);
-    QPushButton *nextButton = new QPushButton("&Next Step", stepWidget);
-    QPushButton *prevButton = new QPushButton("&Previous", stepWidget);
-
     connect(timerButton,&QPushButton::clicked,qTimers_,&QTimerStack::deployTimerWidgetSlot);
-    connect(nextButton,&QPushButton::clicked,this,&QRecepy::nextStepSlot);
-    connect(prevButton,&QPushButton::clicked,this,&QRecepy::previousStepSlot);
+
+    QPushButton *nextButton =nullptr;
+    if((unsigned int)step<numSteps_-1){
+        nextButton = new QPushButton("&Next Step", stepWidget);
+        connect(nextButton,&QPushButton::clicked,this,&QRecepy::nextStepSlot);
+    }
+    QPushButton *prevButton = nullptr;
+    if((unsigned int)step>0){
+        prevButton = new QPushButton("&Previous Step", stepWidget);
+        connect(prevButton,&QPushButton::clicked,this,&QRecepy::previousStepSlot);
+    }
 
     QVBoxLayout * layout = new QVBoxLayout;
 //    layout->setGeometry(QRect(0,0,100,200));

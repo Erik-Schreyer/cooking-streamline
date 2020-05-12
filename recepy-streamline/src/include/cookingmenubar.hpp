@@ -2,6 +2,7 @@
 #define COOKINGMENUBAR_HPP
 
 #include "qcookbook.hpp"
+#include "mainwindow.h"
 
 #include <QMainWindow>
 #include <QMenuBar>
@@ -20,11 +21,11 @@ class CookingMenuBar : public QWidget
     Q_OBJECT
 
 public:
-    CookingMenuBar(QMainWindow *inMainWindow); // Constructor
+    CookingMenuBar(MainWindow *inMainWindow); // Constructor
     ~CookingMenuBar();                         // Destructor
 
 public:
-    QMainWindow  *mainWindow_;
+    MainWindow  *mainWindow_;
 
 private slots:
     // Declare function prototypes
@@ -55,14 +56,15 @@ public:
     //Cookbook menu actions
     QAction *newRecepy_;
     QAction *loadRecepy_;
+    QAction *removeRecepy_;
     QAction *listRecepies_;
 
     //Recepy menu actions
     QAction *nextStep_;
     QAction *previousStep_;
+    QAction *showRecepy_;
     QAction *showIngredients_;
-    //New Recepy action
-    QAction *saveRecepy_;
+
 };
 
 #endif // COOKINGMENUBAR_HPP

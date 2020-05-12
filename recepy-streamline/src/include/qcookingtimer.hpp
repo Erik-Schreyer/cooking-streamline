@@ -10,22 +10,25 @@
 #include <QTimer>
 #include <QLabel>
 #include <QString>
+#include <QPushButton>
 
 class QCookingTimer : public QObject
 {
 public:
-    explicit QCookingTimer(QWidget* parent, int time, QFont buttonF, QFont timerF);
+    explicit QCookingTimer(QWidget* parent, int time, QFont buttonF, QFont timerF,QFont oneMinuteF);
     ~QCookingTimer(){};
 
 private:
     QWidget *parent_;
-    int time_;
-    int remainingTime_;
+    unsigned int time_;
+    unsigned int remainingTime_;
 
     QFont buttonF_;
     QFont timerF_;
+    QFont oneMinuteFont_;
     QTimer * timer_;
     QLabel * timeLabel_;
+    QPushButton * startResetButton_;
 
 public slots:
 
@@ -47,6 +50,14 @@ public:
 
     void setLabelText(QString newText){
         timeLabel_->setText(newText);
+    }
+
+    QPushButton * getButton(){
+        return startResetButton_;
+    }
+
+    void setButtonText(QString newText){
+        startResetButton_->setText(newText);
     }
 };
 
